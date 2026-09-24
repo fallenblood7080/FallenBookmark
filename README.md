@@ -21,7 +21,7 @@ A lightweight Unity editor tool for saving and revisiting your most-used assets,
 4. Paste the following URL:
 
 ```text
-[https://github.com/fallenblood7080/FallenBookmark.git?path=/Packages/com.fallen.bookmark](https://github.com/fallenblood7080/FallenBookmark.git?path=/Packages/com.fallen.bookmark)
+https://github.com/fallenblood7080/FallenBookmark.git?path=/Packages/com.fallen.bookmark
 ```
 
 ## Usage
