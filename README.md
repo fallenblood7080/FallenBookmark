@@ -12,20 +12,24 @@ A lightweight Unity editor tool for saving and revisiting your most-used assets,
 - Remove entries directly from the bookmark list
 - Visual badges for common item types such as folders, scenes, scripts, and prefabs
 
-## Installation
 
-1. Add this package to your Unity project via the Package Manager using the local path or a git-based package reference.
+### Installation via Package Manager
+
+1. Open **Window > Package Manager** in Unity.
+2. Click the **`+`** icon in the top-left corner.
+3. Select **Add package from git URL...**
+4. Paste the following URL:
+
+```text
+[https://github.com/fallenblood7080/FallenBookmark.git?path=/Packages/com.fallen.bookmark](https://github.com/fallenblood7080/FallenBookmark.git?path=/Packages/com.fallen.bookmark)
+```
+
+## Usage
+
 2. Open the bookmark window using:
    - Window > Bookmark Window
 3. In the Project window, select one or more assets and use:
    - Assets > Bookmark
-
-## Usage
-
-- Select any asset, scene, script, or folder in the Project window.
-- Use the Assets > Bookmark menu item to add it to your bookmark list.
-- Open the bookmark window to view, select, or remove saved entries.
-- Clicking a bookmarked item focuses the object and pings it in the editor.
 
 ## Package Structure
 
