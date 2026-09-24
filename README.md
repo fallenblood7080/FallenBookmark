@@ -1,6 +1,8 @@
 # Fallen Bookmark
 
 A lightweight Unity editor tool for saving and revisiting your most-used assets, folders, scenes, and scripts.
+<img width="409" height="625" alt="image" src="https://github.com/user-attachments/assets/44b1b81c-6b73-4a0b-bd7c-bfb9e39fdd9c" />
+
 
 ## Features
 
