@@ -1,0 +1,21 @@
+{
+  "name": "com.fallen.bookmark",
+  "displayName": "Fallen Bookmark",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "A lightweight Unity editor bookmark utility for quickly saving and revisiting favorite assets, folders, scenes, and scripts.",
+  "keywords": [
+    "editor",
+    "bookmark",
+    "tools",
+    "unity"
+  ],
+  "category": "Tools",
+  "author": {
+    "name": "Fallenblood",
+    "url": "https://github.com/fallenblood7080"
+  },
+
+  "documentationUrl": "",
+  "licensesUrl": ""
+}

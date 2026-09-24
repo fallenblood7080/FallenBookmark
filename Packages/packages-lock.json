@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.fallen.bookmark": {
+      "version": "file:com.fallen.bookmark",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "16.0.0",
       "depth": 0,
