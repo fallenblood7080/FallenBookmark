@@ -29,7 +29,7 @@ namespace Fallen.Bookmark.Editor
             }
         }
 
-        [MenuItem("Assets/Bookmark Item", true)]
+        [MenuItem("Assets/Bookmark", true)]
         private static bool ValidateBookmarkSelectedItem()
         {
             return Selection.objects != null && Selection.objects.Length > 0;

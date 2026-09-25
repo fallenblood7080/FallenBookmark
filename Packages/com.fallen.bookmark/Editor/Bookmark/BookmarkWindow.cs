@@ -33,8 +33,9 @@ namespace Fallen.Bookmark.Editor
                 reorderable = true,
                 style = { flexGrow = 1 }
             };
+            
 
-            listView.selectionChanged += OnItemSelected;
+            //listView.selectionChanged += OnItemSelected;
             root.Add(listView);
         }
 
@@ -52,7 +53,6 @@ namespace Fallen.Bookmark.Editor
             container.style.paddingLeft = 6;
             container.style.paddingRight = 6;
 
-            // Info Container (Icon + Label)
             VisualElement infoContainer = new VisualElement();
             infoContainer.style.flexDirection = FlexDirection.Row;
             infoContainer.style.alignItems = Align.Center;
@@ -69,7 +69,6 @@ namespace Fallen.Bookmark.Editor
             infoContainer.Add(iconImage);
             infoContainer.Add(label);
 
-            // Type Badge
             Label typeBadge = new Label { name = "type-badge" };
             typeBadge.style.fontSize = 9;
             typeBadge.style.paddingLeft = 5;
@@ -83,7 +82,6 @@ namespace Fallen.Bookmark.Editor
             typeBadge.style.borderBottomRightRadius = 3;
             typeBadge.style.unityFontStyleAndWeight = FontStyle.Bold;
 
-            // Remove Button
             Button removeBtn = new Button { name = "remove-btn", text = "X" };
             removeBtn.style.width = 20;
             removeBtn.style.height = 20;
@@ -93,24 +91,58 @@ namespace Fallen.Bookmark.Editor
             container.Add(typeBadge);
             container.Add(removeBtn);
 
+            container.RegisterCallback<PointerEnterEvent>(evt => 
+            {
+                container.style.backgroundColor = new StyleColor(new Color(1f, 1f, 1f, 0.15f));
+            });
+
+            container.RegisterCallback<PointerLeaveEvent>(evt => 
+            {
+                container.style.backgroundColor = new StyleColor(Color.clear);
+            });
+
+            container.RegisterCallback<PointerDownEvent>(OnPointerDownOnItem);
+
+            container.AddManipulator(new ContextualMenuManipulator(evt => PopulateContextMenu(evt, container)));
+
             return container;
+        }
+
+        private void OnPointerDownOnItem(PointerDownEvent evt)
+        {
+            if(evt.button != 0) return;
+
+            VisualElement container = evt.currentTarget as VisualElement;
+            if(container?.userData is Object obj && obj != null)
+            {
+                EditorGUIUtility.PingObject(obj);
+            }
+        }
+
+        private void PopulateContextMenu(ContextualMenuPopulateEvent evt, VisualElement container)
+        {
+            if (container.userData is not Object obj || obj == null) return;
+
+            evt.menu.AppendAction("Ping Item", action =>
+            {
+                EditorGUIUtility.PingObject(obj);
+                Selection.activeObject = obj;
+            });
+
+            evt.menu.AppendAction("Properties", action =>
+            {
+                EditorUtility.OpenPropertyEditor(obj);
+            });
         }
 
         private void BindItem(VisualElement element, int index)
         {
             if (index >= data.GetBookmarkList.Count) return;
 
-            // Zebra-striping row backgrounds using Unity Editor Theme Colors
-            if (index % 2 == 0)
-            {
-                element.style.backgroundColor = new StyleColor(new Color(0.22f, 0.22f, 0.22f, 1f));
-            }
-            else
-            {
-                element.style.backgroundColor = new StyleColor(new Color(0.26f, 0.26f, 0.26f, 1f));
-            }
+            Object obj = data.GetBookmarkList[index];
 
-            UnityEngine.Object obj = data.GetBookmarkList[index];
+            element.userData = obj;
+
             Image iconImage = element.Q<Image>("item-icon");
             Label label = element.Q<Label>("item-label");
             Label typeBadge = element.Q<Label>("type-badge");
@@ -122,14 +154,12 @@ namespace Fallen.Bookmark.Editor
             {
                 label.text = obj.name;
 
-                // Load official Unity type icon
                 GUIContent content = EditorGUIUtility.ObjectContent(obj, obj.GetType());
                 if (content != null && content.image != null)
                 {
                     iconImage.image = content.image;
                 }
 
-                // Type-specific UI styling
                 string path = AssetDatabase.GetAssetPath(obj);
                 ApplyTypeBadgeStyle(typeBadge, obj, path);
             }
@@ -185,6 +215,9 @@ namespace Fallen.Bookmark.Editor
 
         private void OnRemoveClicked(ClickEvent evt)
         {
+            // Prevent event from bubbling up to selection handlers
+            evt.StopPropagation();
+
             Button removeBtn = evt.currentTarget as Button;
             if (removeBtn == null || removeBtn.userData is not int index)
             {
@@ -200,16 +233,16 @@ namespace Fallen.Bookmark.Editor
             RefreshList();
         }
 
-        private void OnItemSelected(IEnumerable<object> selectedItems)
-        {
-            foreach (var item in selectedItems)
-            {
-                if (item is UnityEngine.Object obj && obj != null)
-                {
-                    EditorGUIUtility.PingObject(obj);
-                    Selection.activeObject = obj;
-                }
-            }
-        }
+        // private void OnItemSelected(IEnumerable<object> selectedItems)
+        // {
+        //     foreach (var item in selectedItems)
+        //     {
+        //         if (item is Object obj && obj != null)
+        //         {
+        //             EditorGUIUtility.PingObject(obj);
+        //             Selection.activeObject = obj;
+        //         }
+        //     }
+        // }
     }
 }
