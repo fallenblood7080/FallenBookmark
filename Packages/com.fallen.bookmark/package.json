@@ -1,7 +1,7 @@
 {
   "name": "com.fallen.bookmark",
   "displayName": "Fallen Bookmark",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "unity": "2022.3",
   "description": "A lightweight Unity editor bookmark utility for quickly saving and revisiting favorite assets, folders, scenes, and scripts.",
   "keywords": [

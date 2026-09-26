@@ -233,6 +233,11 @@ namespace Fallen.Bookmark.Editor
             RefreshList();
         }
 
+        private void OnProjectChange()
+        {
+            RefreshList();
+        }
+
         // private void OnItemSelected(IEnumerable<object> selectedItems)
         // {
         //     foreach (var item in selectedItems)
